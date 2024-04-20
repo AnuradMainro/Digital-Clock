@@ -26,7 +26,7 @@ const WorldTime = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`http://worldtimeapi.org/api/timezone/${selectedTimezone.value}`);
+      const response = await fetch(`https://worldtimeapi.org/api/timezone/${selectedTimezone.value}`);
       if (!response.ok) {
         throw new Error('Failed to fetch time data');
       }
