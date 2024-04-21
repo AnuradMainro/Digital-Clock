@@ -1,8 +1,7 @@
-// components/WorldTime.js
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import timezonesData from '../timezones.json'; // Make sure the path is correct
+import timezonesData from '../timezones.json';
 
 const WorldTime = () => {
   const [selectedTimezone, setSelectedTimezone] = useState(null);
@@ -10,27 +9,24 @@ const WorldTime = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Convert the loaded timezones data to the format required by react-select
   const timezoneOptions = timezonesData.map(tz => ({
-    value: tz.utc[0], // use the first value in utc array
-    label: tz.text // the text field contains the formatted timezone string
+    value: tz.utc[0], // use the first value in UTC array
+    label: tz.text 
   }));
 
-  const handleSearch = async () => {
+  // Function to fetch time data
+  const fetchTime = async () => {
     if (!selectedTimezone) {
       setError('Please select a timezone.');
       return;
     }
-
     setError('');
     setLoading(true);
-
     try {
       const response = await fetch(`https://worldtimeapi.org/api/timezone/${selectedTimezone.value}`);
       if (!response.ok) {
         throw new Error('Failed to fetch time data');
       }
-
       const data = await response.json();
       setTimeData({
         datetime: data.datetime,
@@ -43,12 +39,25 @@ const WorldTime = () => {
     }
   };
 
-  // Check if we have valid date and timezone values before formatting
-  const formattedTime = timeData.datetime && timeData.timezone 
+  useEffect(() => {
+    // Update the clock every second if time data is available
+    let intervalId;
+    if (timeData.datetime) {
+      intervalId = setInterval(() => {
+        setTimeData(prevData => ({
+          ...prevData,
+          datetime: new Date(new Date(prevData.datetime).getTime() + 1000)
+        }));
+      }, 1000);
+    }
+    return () => clearInterval(intervalId);
+  }, [timeData.datetime]);
+
+  const formattedTime = timeData.datetime
     ? new Date(timeData.datetime).toLocaleTimeString('en-US', { timeZone: timeData.timezone })
     : '';
 
-  const formattedDate = timeData.datetime && timeData.timezone 
+  const formattedDate = timeData.datetime
     ? new Date(timeData.datetime).toLocaleDateString('en-US', { timeZone: timeData.timezone })
     : '';
 
@@ -64,7 +73,7 @@ const WorldTime = () => {
         isSearchable
       />
       <button
-        onClick={handleSearch}
+        onClick={fetchTime}
         disabled={loading}
         className="mt-3 px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-700 disabled:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
       >

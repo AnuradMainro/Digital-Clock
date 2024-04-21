@@ -1,22 +1,22 @@
+// Home.js
 "use client";
 import React, { useState } from 'react';
-import dynamic from 'next/dynamic';
 import Navbar from './components/navbar';
-import Clock from './components/clock';
-const WorldTime = dynamic(() => import('./components/world-clock'), { ssr: false });
+import LocalTimeBackground from './components/local_background';
+import WorldTimeBackground from './components/world_background';
 
 const Home = () => {
   const [view, setView] = useState('local');
   const now = new Date().getTime(); // Get the current time as a timestamp
 
   return (
-    <div className={`flex flex-col h-screen`}>
+    <div className="flex flex-col h-screen">
       <Navbar onSelect={(selectedView) => setView(selectedView)} />
       <main className="flex-grow flex items-center justify-center">
         {view === 'local' ? (
-          <Clock time={now} />
+          <LocalTimeBackground time={now} />
         ) : (
-          <WorldTime timezone="Europe/London" />
+          <WorldTimeBackground timezone="Europe/London" />
         )}
       </main>
     </div>

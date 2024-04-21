@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const Clock = () => {
-  const [currentTime, setCurrentTime] = useState(null); // Initialize without setting time
+  const [currentTime, setCurrentTime] = useState(new Date()); // Initialize with current time
 
   useEffect(() => {
     // Update time immediately and set interval only after mounting
@@ -13,10 +13,6 @@ const Clock = () => {
     return () => clearInterval(timer);
   }, []);
 
-  if (!currentTime) {
-    return <div>Loading clock...</div>; // Show loading or nothing until content is ready
-  }
-
   const timeString = currentTime.toLocaleTimeString('en-US', {
     hour: '2-digit',
     minute: '2-digit',
@@ -24,9 +20,21 @@ const Clock = () => {
     hour12: true
   });
 
+  const dateString = currentTime.toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
   return (
-    <div className="text-7xl tabular-nums">
-      {timeString}
+    <div className="flex flex-col items-center justify-center space-y-4">
+      <div className="text-7xl font-bold text-white" style={{ opacity: 0.95, zIndex: 20 }}>
+        {timeString}
+      </div>
+      <div className="text-4xl text-white" style={{ opacity: 0.95, zIndex: 20 }}>
+        {dateString}
+      </div>
     </div>
   );
 };
