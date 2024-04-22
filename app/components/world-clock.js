@@ -10,11 +10,10 @@ const WorldTime = () => {
   const [error, setError] = useState('');
 
   const timezoneOptions = timezonesData.map(tz => ({
-    value: tz.utc[0], // use the first value in UTC array
+    value: tz.utc[0], 
     label: tz.text 
   }));
 
-  // Function to fetch time data
   const fetchTime = async () => {
     if (!selectedTimezone) {
       setError('Please select a timezone.');
@@ -30,7 +29,7 @@ const WorldTime = () => {
       const data = await response.json();
       setTimeData({
         datetime: data.datetime,
-        timezone: data.timezone // Ensure that this value exists in the API response
+        timezone: data.timezone 
       });
     } catch (err) {
       setError(`Error: ${err.message}`);
@@ -40,7 +39,6 @@ const WorldTime = () => {
   };
 
   useEffect(() => {
-    // Update the clock every second if time data is available
     let intervalId;
     if (timeData.datetime) {
       intervalId = setInterval(() => {

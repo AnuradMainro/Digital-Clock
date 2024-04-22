@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 const Clock = () => {
-  const [currentTime, setCurrentTime] = useState(new Date()); // Initialize with current time
-
+  const [currentTime, setCurrentTime] = useState(new Date()); 
   useEffect(() => {
-    // Update time immediately and set interval only after mounting
     const updateTime = () => {
-      setCurrentTime(new Date()); // Only set time here
+      setCurrentTime(new Date()); 
     };
-    updateTime(); // Set initial time
+    updateTime(); 
     const timer = setInterval(updateTime, 1000);
     return () => clearInterval(timer);
   }, []);
