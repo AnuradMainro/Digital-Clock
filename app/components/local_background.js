@@ -1,6 +1,5 @@
-// components/LocalTimeBackground.js
 import React from 'react';
-import Clock from './clock'; // Ensure the path is correct
+import Clock from './local-clock'; 
 
 const LocalTimeBackground = ({ time }) => {
   return (
