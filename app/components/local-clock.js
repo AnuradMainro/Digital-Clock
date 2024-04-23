@@ -27,7 +27,7 @@ const Clock = () => {
 
   return (
     <div className="flex flex-col items-center justify-center space-y-4">
-      <div className="text-7xl font-bold text-white">
+      <div className="text-7xl tabular-nums font-bold text-white">
         {timeString}
       </div>
       <div className="text-4xl text-white">

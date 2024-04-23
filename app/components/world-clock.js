@@ -80,7 +80,7 @@ const WorldTime = () => {
       {error && <p className="text-red-500">{error}</p>}
       {formattedTime && (
         <div className="text-center mt-3">
-          <p className="text-7xl  font-bold">{formattedTime}</p>
+          <p className="text-7xl  tabular-nums font-bold">{formattedTime}</p>
           <p className="text-4xl">{formattedDate}</p>
         </div>
       )}
