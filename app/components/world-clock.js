@@ -73,14 +73,14 @@ const WorldTime = () => {
       <button
         onClick={fetchTime}
         disabled={loading}
-        className="mt-3 px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-700 disabled:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        className="mt-3 px-4 py-2 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-700 disabled:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
       >
         {loading ? 'Loading...' : 'Search'}
       </button>
       {error && <p className="text-red-500">{error}</p>}
       {formattedTime && (
         <div className="text-center mt-3">
-          <p className="text-7xl">{formattedTime}</p>
+          <p className="text-7xl  font-bold">{formattedTime}</p>
           <p className="text-4xl">{formattedDate}</p>
         </div>
       )}
